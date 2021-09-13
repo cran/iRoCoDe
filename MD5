@@ -1,0 +1,11 @@
+a133baf8e5441a14307ab658832b020b *DESCRIPTION
+8b54e5a89fbda3af5e077053d40bec76 *NAMESPACE
+6c829e8969ef6271f819941727d53901 *R/iRoCoDe.R
+3911717158cb40436a88cd0a135ee26e *man/a_matrix.Rd
+c1fbb260787dab158fc293f2c21bab4f *man/get_rep.Rd
+404d56a6cbe01afaa4f4ab4006a48919 *man/get_treat.Rd
+a2110c1b564ece41f75f7d84bf9cae68 *man/iRoCoDe.Rd
+4dc78f425d0c3dffcb34801928c158aa *man/n_matrix.Rd
+0d3b30d92cccb8085473a187a6962d65 *man/rearrange_mat.Rd
+f47927f4abc8495bd3aa0e659fc63b02 *man/rmv_list.Rd
+97166f23cfee24598e16ce950d56a219 *man/row_unique.Rd
