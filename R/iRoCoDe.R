@@ -93,7 +93,6 @@ a_matrix <- function(design2, n_matrix){
     }
   }
   a_mat[is.na(a_mat)]=0
-  #print(a_mat)
   return(a_mat)
 }
 
@@ -203,7 +202,12 @@ rearrange_mat <- function(a_matrix, treatments){
             break
           }
         } ## end of second loop (j)
+        iter = 0
         while(length(miss_list) !=0){
+        iter = iter+1
+          if (iter >5){
+            return('error')
+          }
           for (j in (1:cols)){
             if (a_mat[i,j]!=0){
               curr_val_3 = a_mat[i,j]
@@ -355,23 +359,13 @@ iRoCoDe <- function(design1, design2){
   r1 = get_rep(d1)
   r2 = get_rep(d2)
   if (r1 == 'error' || r2 =='error'){
-    return('replications are not equal')
+    stop('Oops!! Design cannot be created, Replications mis-matched error occured')
   }
 
   # block size
   k1 = ncol(d1)
   k2 = ncol(d2)
 
-  # cat(paste0('\nParameters of First Design:\n',
-  #              'treatments:',v1,',\n',
-  #              'blocks: ',b1,',\n',
-  #              'replication: ', r1,',\n',
-  #              'block size: ', k1))
-  # cat(paste0('\nParameters of Second Design:\n',
-  #              'treatments: ',v2,',\n',
-  #              'blocks: ',b2,',\n',
-  #              'replication: ', r2,',\n',
-  #              'block size: ', k2, '\n'))
   ## check the criteria
   if(v1==r2 &
      v2==r1 &
@@ -380,21 +374,12 @@ iRoCoDe <- function(design1, design2){
 
     ### calculation N(v1*b1) matrix from D1 design
     n_mat = n_matrix(d1, v1, b1)
-    # cat("\n")
-    # print("Incidence Matrix (n_matrix)")
-    # print(n_mat)
 
     ### Calculation A(v1*b1) matrix Calculation
     a_mat = a_matrix(d2, n_mat)
-    # cat("\n")
-    # print("a_matrix")
-    # print(a_mat)
 
     ### rearrange the A matrix
     rearranged_a_matrix = rearrange_mat(a_mat, v2)
-    # cat("\n")
-    # print("Rearranged a_matrix")
-    # print(rearranged_a_matrix)
 
     ### generate the final matrix
     if(rearranged_a_matrix [1]!='error'){
@@ -409,16 +394,11 @@ iRoCoDe <- function(design1, design2){
           final_matrix[j,i] = k
         }
       }
-    #cat("\nCongratulations!! Final design has been successfully generated.\n")
       } else {
-      return('Oops!! Design can'/'t be created. Some error occured.')
+      stop('Oops!! Design cannot be created, Some error occured')
     }
   } else{
-    return('Oops!! Design can'/'t be created. Criteria mis-matched error.')
+    stop('Oops!! Design cannot be created, Criteria mis-matched error occured')
   }
-  #cat("\n")
-  print("Final design(D)")
-  print(final_matrix)
-
-  return(final_matrix)
+return(final_matrix)
 }
